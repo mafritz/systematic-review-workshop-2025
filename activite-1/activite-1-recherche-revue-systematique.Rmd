@@ -1,0 +1,178 @@
+---
+title: "Activité sur la planification et l'exécution d'une recherche documentaire pour une revue systématique avec ou sans méta-analyse"
+author: |
+  | **Mattia A. Fritz**
+  | \small SRED, Canton de Genève et TECFA, Université de Genève
+date: "`r format(Sys.time(), '%d/%m/%Y')`"
+lang: fr
+linestretch: 1.2
+fontsize: 12pt
+urlcolor: blue
+output:
+  pdf_document:
+    toc: false
+    toc_depth: 1
+    number_sections: true
+    latex_engine: xelatex
+    extra_dependencies: ["flafter"]
+    includes:
+      in_header: "../settings/preamble.tex"
+      before_body: "../settings/before-body.tex"
+      #after_body: "doc-suffix.tex"
+bibliography: ../bib/references.bib
+csl: ../settings/apa.csl
+abstract: "Cette activité permet de s'exercer à la recherche documentaire en suivant une version simplifiée d'une procédure systématique. Elle consiste à formuler une question de recherche à l'aide d'un framework pour identifier les concepts clés de la recherche, trouver des synonymes et combiner les concepts afin de créer et exécuter une query/équation de recherche dans un ou plusieurs bases de données, registres, ou moteurs/applications. L'activité propose également d'esquisser un tableau de codage pour déterminer l'éligibilité des contributions pour l'étape de synthèse."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+Sys.setlocale("LC_ALL", "French")
+source(here::here("settings", "custom.R"))
+```
+
+# Introduction
+
+Les revues systématiques identifient, collectent, évaluent, analysent, et synthétisent des contributions (scientifiques) primaires existantes en suivant une démarche systématique pour répondre à une question de recherche.
+
+Ce document propose une activité à mener dans le cadre d'un workshop introductif sur les revues systématiques et les méta-analyses qui adapte des procédures présentes également dans des *workflows* appliqués dans les contributions scientifiques de ce type. Le flux proposé ici se compose des étapes suivantes :
+
+1.  Formuler une question de recherche en identifiant les concepts clé à l'aide d'un *framework;*
+2.  Élargir les concepts à travers des synonymes ou phénomènes appariés qui peuvent être formulées à travers un vocabulaire libre et/ou tiré d'un vocabulaire fermé;
+3.  Combiner les concepts à l'aide d'opérateurs booléens, outils de ciblage ou de flexibilité afin d'obtenir une *query*/équation de recherche à exécuter au moins dans un dépôt documentaire (e.g. base de données, registres, moteur de recherche, application web, ...);
+4.  Créer une esquisse de tableau de codage pour catégoriser et répertorier les contributions trouvées afin d'en établir l'éligibilité pour l'étape de synthèse;
+
+# Question et *framework* de recherche
+
+Pour aider la formulation d'une question de recherche propice à une revue systématique avec ou sans méta-analyse, il existe des *framework* qui permettent de structurer la question en entités spécifiques. Dans cette activité, nous proposons les deux *framework* suivants:
+
+1.  PICO ou PECO
+2.  SPIDER
+
+## PICO ou PECO
+
+PICO (*Patient/Population/Person*, *Intervention*, *Comparison*, *Outcome*) et PECO (*Population/Person*, *Exposition/Intervention*, *Comparison*, *Outcome*) sont des cadres largement utilisés dans les revues systématiques notamment en lien avec la santé, mais peuvent être adaptés également à d'autres contextes.
+
+PICO est généralement utilisé dans les contextes cliniques/expérimentaux, où l'accent est mis sur les interventions ou les traitements, tandis que PECO est plus applicable dans les contextes épidémiologiques ou de santé publique, où les facteurs d'exposition peuvent être d'intérêt.
+
+## SPIDER
+
+SPIDER (*Sample*, *Phenomenon of Interest*, *Design*, *Evaluation*, *Research type*) est un cadre utilisé souvent pour des synthèses narratives ou méta-synthèses, mais il peut être à l'occurrence aussi adapté à des contextes quantitatifs et expérimentaux.
+
+Dans cet acronyme l'entité *Design* et *Research type* peuvent créer une certaine confusion et la littérature est parfois contradictoire sur la distinction entre les deux. *Design* peut se référer à des méthodes de recherche plutôt spécifiques, comme la modalité de récolte des données (entretiens, focus groupes, ...) ou des paradigmes de recherche (ethnographie, grounded theory, ...). *Research type* a en général une portée plus large, avec la grande typologie de recherche appliqué (qualitative, quantitative, mixte, ...).
+
+## À vous...
+
+1.  Identifiez un argument de votre choix pour lequel il est envisageable de mener une revue systématique de la littérature avec ou sans méta-analyse.
+
+2.  Choisissez le *framework* qui à votre avis s'adapte le mieux à vos intentions et téléversez le fichier Word d'accompagnement
+
+3.  Écrivez votre question de recherche en spécifiant les concepts selon les couleurs des entités de l'acronyme de référence
+
+# Calibration des concepts clé
+
+Une fois les concepts clé identifié à l'aide du framework, il faut tenir compte d'au moins deux sources de variabilité potentielle concernant les concepts:
+
+-   **L'utilisation de formes équivalentes, alternatives ou très proches.**\
+    Par exemple, les termes/concepts *pensée computationnelle* et *pensée informatique* sont considérées dans la plupart des cas comme des concepts équivalents. Dans cette source de variabilité figurent également des détails comme l'orthographe qui peut varier selon la région de référence (e.g. *color* en anglais américain ou *colour* en anglais britannique).
+
+-   **La possibilité qu'on s'intéresse à des concepts en lien sémantique, mais néanmoins considérés distincts**. Par exemple, les termes *coopération* et *collaboration* sont considérés comme deux phénomènes qui diffèrent sur l'étendu de l'interdépendance, mais selon la portée de la recherche on peut s'intéresser aux deux en même temps.
+
+## Types de vocabulaires
+
+Il est donc nécessaire de penser à toutes les variations ou concepts jugés pertinents/équivalents dans le cadre de la recherche pour chaque entité identifiée dans la question de recherche. Il existe principalement deux stratégies à ce propos:
+
+1.  Utiliser un **vocabulaire libre**, c'est-à-dire que les chercheurs définissent les termes selon leur expérience ou les pratiques communes dans le domaine de référence;
+2.  Utiliser un **vocabulaire fermé**. Certains dépôts documentaires proposent un *Thesaurus* ou équivalent qui propose une liste fermé de termes, parfois même avec l'articulation avec d'autres termes.
+
+## À vous...
+
+Utilisez à nouveau la fiche pour l'activité. Pour chaque terme de l'acronyme, trouvez au moins 3 variantes. Pour chaque variante:
+
+1.  Illustrez le terme alternatif
+2.  Indiquez depuis quel vocabulaire il a été tiré
+    -   Libre si vous l'avez décidé vous-même
+    -   Le nom du vocabulaire fermé si vous l'avez défini en fonction d'une liste préexistante, par exemple:
+        -   [MeSH](https://www.ncbi.nlm.nih.gov/mesh) pour Medical Subject Headings (PubMed)
+        -   [PIT](https://www.apa.org/pubs/databases/training/thesaurus) pour Thesaurus of Psychological Index Terms (APA)
+        -   [Emtree](https://www.elsevier.com/solutions/embase-biomedical-research/emtree) (EMBASE)
+3.  Expliquez brièvement le rapport entre ce terme et le concept utilisé dans la question de recherche
+
+# Formulation et exécution d'une *query*/équation de recherche
+
+Chaque système de recherche possède une syntaxe et/ou une interface différente. Il existe également des langages de programmation ou des applications qui permettent de mener des recherches dans plusieurs dépôts à la fois. Donc comment formuler et exécuter concrètement une query de recherche dépend étroitement de la situation concrète.
+
+Dans cette activité, je vous propose d'utiliser de préférence [l'interface avancée de PubMed](https://pubmed.ncbi.nlm.nih.gov/advanced/) car elle:
+
+-   Permet d'écrire ou copier/coller directement une query sans forcément utiliser des champs de l'interface
+
+-   Possède un [Help/User guide](https://pubmed.ncbi.nlm.nih.gov/help/) assez bien fait, qui propose les différentes options de recherche
+
+-   Il est assez transparent sur le fonctionnement interne du moteur de recherche
+
+## Stratégie de base
+
+Une stratégie pour entamer une recherche consiste à combiner les termes identifiés à l'aide du framework et de la calibration de la manière suivante:
+
+1.  Pour chaque entité, les termes sont combinés à l'intérieur d'un bloc (e.g. une parenthèse) avec l'opérateur booléen **OR**. Ceci permet d'élargir la portée de la recherche
+2.  Les blocs sont ensuite combinés avec l'opérateur booléen **AND** afin de sélectionner seulement les contributions qui présentent toutes les entités concernées. Il faut en effet résister à la tentation de mener séparément des sous-queries pour chaque entité parce que l'information qu'on peut tirer des résultats n'est pas très informative.
+3.  Enfin, on peut ajouter des distinctions avec l'opérateur booléen **NOT** pour exclure des termes/concepts
+
+## À vous...
+
+En vous appuyant encore une fois sur la fiche d'accompagnement:
+
+1.  Utilisez d'abord la stratégie de base pour créer une simple query de recherche en fonction de termes identifiés dans les étapes précédentes
+2.  Avant de lancer la recherche, estimez et notez le nombre d'occurrences que vous vous attendez à obtenir
+3.  Lancez enfin la query et comparez le nombre estimé avec les occurrences trouvées:
+    -   Est-ce que ce nombre est supérieur ou inférieur à vos attentes
+    -   Combien de contributions vous imaginez envisageable de traiter
+    -   Comment pourriez-vous vous approcher plus à ce chiffre en adaptant la query de recherche?
+4.  Répliquer le processus au moins pour une deuxième query en choisissant entre:
+    -   Une query plus ou moins complexe/précise selon le nombre d'occurrences trouvées. Par exemple, vous pouvez essayer de filtrer par [type de publication](https://pubmed.ncbi.nlm.nih.gov/help/#publication-types) ou par [date de publication](https://pubmed.ncbi.nlm.nih.gov/help/#dp)
+    -   Un autre système de recherche de votre choix. Dans ce cas, il est possible qu'il faudra utiliser une interface.
+
+# Créer un tableau avec des critères de codage
+
+La dernière étape de cette activité consiste à esquisser un tableau avec des critères de codage pour déterminer:
+
+1.  L'éligibilité de la contribution pour la phase de synthèse (inclusion ou exclusion)
+2.  Des caractéristiques/données contenus dans les contributions qui seront ensuite utilisées concrètement pour créer la synthèse
+3.  Déterminer éventuellement la qualité et la présence de biais potentiels dans les contributions
+
+## Caractéristiques des critères
+
+Il est impossible de fournir des critères universels sur le type et nombre de critères à utiliser pour une revue systématique. On peut néanmoins penser aux critères comme une sorte de *mesure* et donc essayer d'appliquer aux critères les mêmes qualités des mesures dans les sciences sociales:
+
+-   **Sensibilité**. Un critère doit pouvoir discriminer parmi les différentes contributions. Si un critère s'applique à toutes les contributions, alors ce n'est plus une variable, mais une constante.
+
+-   **Fiabilité**. Idéalement, toute personne avec des connaissances suffisantes dans le domaine devrait pouvoir attribuer à une contribution la même valeur sur le critère de référence. Ceci est particulièrement délicat lorsque plusieurs chercheurs participent à la revue systématique. On essaie à ce moment de coder indépendamment les contributions et comparer/négocier l'application uniforme des critères.
+
+-   **Validité**. Est-ce que le critère utilisé permet d'attribuer la *vraie* valeur aux contributions. Ce critère est particulièrement important dans l'évaluation de la qualité et/ou des biais des contributions.
+
+## Motivation des critères
+
+Les critères doivent être motivés pour ce qui concerne leur présence (quel est l'intérêt de catégoriser les contributions ou récupérer certaines informations), mais également les motifs d'inclusion ou exclusion.
+
+## À vous...
+
+Imaginez 4 ou 5 critères qui pourraient être nécessaires/intéressants pour catégoriser vos contributions. Pour chaque critère, définissez:
+
+-   Une manière de se référer à ce critère. Nommer les critères est une étape très importante.
+
+-   L'importance intrinsèque du critère. Définir l'importance vous permet notamment de créer un flux d'inclusion/exclusion hiérarchique.
+
+-   Les motivations d'inclusion. Pourquoi fixer par exemple un critère d'inclusion à un certain seuil? Quelles sont les conséquences de ce seuil de discrimination?
+
+-   Les motivations d'exclusion. Au même titre, il est important de motiver pourquoi certaines contributions seront exclues en fonction du critère de référence.
+
+Notez les critères dans le tableau à la fin de la fiche d'accompagnement.
+
+# Conclusion
+
+Cette activité a proposé une esquisse de démarche systématique compatible avec les temps d'un workshop. Évidemment, un flux pour une vraie revue systématique prévoit des étapes ultérieurs et une majeur complexification des étapes illustrées ici. Néanmoins, cette simple démarche permet déjà d'attirer l'attention sur les éléments fondamentaux suivants:
+
+-   Il est important de documenter le processus du tout début. Cela permet de garder trace à l'intérieur de l'équipe, mais également de faciliter l'explication du processus aux autres chercheurs.
+
+-   Idéalement, toutes les décisions concernant l'identification, la modalité de récolte, l'évaluation et l'éligibilité des contributions devraient être motivé de manière exhaustive et précise.
+
+-   La quantité et complexité de l'information à traiter et à retenir pour les personnes qui mènent la revue systématique est destinée à croître avec l'avancement vers la synthèse.

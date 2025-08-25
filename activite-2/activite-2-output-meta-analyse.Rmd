@@ -1,0 +1,156 @@
+---
+title: "Activité sur les fondements et les enjeux dans l'interprétation des outputs d'une méta-analyse"
+author: |
+  | **Mattia A. Fritz**
+  | \small SRED, Canton de Genève et TECFA, Université de Genève
+date: "`r format(Sys.time(), '%d/%m/%Y')`"
+lang: fr
+linestretch: 1.2
+fontsize: 12pt
+urlcolor: blue
+output:
+  pdf_document:
+    toc: false
+    toc_depth: 1
+    number_sections: true
+    latex_engine: xelatex
+    extra_dependencies: ["flafter"]
+    includes:
+      in_header: "../settings/preamble.tex"
+      before_body: "../settings/before-body.tex"
+      #after_body: "doc-suffix.tex"
+bibliography: ../bib/references.bib
+csl: ../settings/apa.csl
+abstract: "Cette activité s'intéresse principalement à la compréhension de méta-analyses classiques, c'est-$-dire qui comparent un groupe traitement avec un groupe contrôle et essayent de définir un effet cumulé. À ce propos, l'activité propose surtout de travailler autour des forest plots, des représentations graphiques qui permettent d'évaluer la présence, la direction et la magnitude des différen"
+---
+
+```{r setup, include=FALSE}
+library(here)
+library(tibble)
+library(metafor)
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  warning = FALSE,
+  out.width = "100%",
+  fig.align = "center",
+  fig.height = 2.5
+)
+Sys.setlocale("LC_ALL", "French")
+source(here::here("settings", "custom.R"))
+source(here::here("activite-2/examples/functions.R"))
+
+source(here::here("activite-2/examples/intro_forest.R"))
+
+source(here::here("activite-2/examples/output1.R"))
+source(here::here("activite-2/examples/output2.R"))
+source(here::here("activite-2/examples/output3.R"))
+```
+
+# Introduction
+
+Une méta-analyse est une synthèse quantitative de contributions scientifiques proposant des caractéristiques (design, intervention, outcome, effet d'intérêt, ...) qui sont jugées suffisamment proches pour pouvoir les combiner. Dans cette activité, nous nous intéressons aux méta-analyses *classiques* qui comparent un groupe traitement avec un groupe contrôle. Dans ce cas, la taille de l'effet est représentée par la différence moyenne standardisée, ou Standardised Mean Difference (SMD) en anglais. Cette mesure, dont la métrique exacte peut varier (e.g. Cohen's, Glass ou Hedges d), correspond à la différence entre la moyenne du groupe traitement et le groupe contrôle, divisé par l'écart type commun:
+
+$$
+d = \frac{{\bar{X}_{\text{treatment}} - \bar{X}_{\text{control}}}}{{s_{\text{pooled}}}}
+$$
+
+Un forest plot affiche la distribution des SMD pour chaque contribution faisant partie de la méta-analyse, ainsi que des informations corollaires. Ces informations dépendent du style du graphique. Dans cette activité, les forest plot reportent plusieurs informations qui sont souvent cachées dans les publications, mais cela facilite la compréhension et limite l'affichage des indicateurs à un seul endroit. Voici un example de forest plot:
+
+```{r intro-forest, fig.cap="Example de forest plot", fig.height=1.5}
+print_forest(analysis_intro, com = TRUE, ran = FALSE, het = TRUE)
+```
+
+Les éléments principaux d'un forest plot utile pour effectuer l'activité sont les suivants:
+
+-   Pour chaque contribution, le graphique illustre le nombre d'observation, la moyenne et l'écart type pour le groupe traitement et le groupe contrôle.
+
+-   La Standardisez Mean Difference (SMD) est d'abord représentée graphiquement et ensuite quantifié numériquement. Dans les deux cas, l'estimation (i.e. le carré) est accompagnée par les intervalles de confiance (i.e. les segments autour). Si les intervalles de confiance croisent la ligne vertical en correspondance d'une SMD de 0, cela signifie que l'hypothèse nulle $H_0$ ne peut pas être rejetée.
+
+-   La colonne Weight détermine l'apport de chaque contribution dans le calcul de l'effet combiné. Le poids dépend de la taille de l'échantillon est est représenté graphiquement aussi par la taille du carré correspondant à l'estimation de la SMD pour chaque contribution.
+
+-   En bas des SMD individuelle se trouve l'effet combiné, qui peut-être Common ou Random dans cette activité. L'effet prend la forme d'un losange, avec les deux pointes qui déterminent les intervalles de confiance autour de l'estimation.
+
+-   Plus bas encore se trouvent les intervalles de prédiction qui sont une manière d'estimer l'hétérogénéité entre études. Le plus large l'étendu de la ligne rouge, le plus d'hétérogénéité. L'hétérogénéité est disponible également en chiffres en bas des graphiques, mais dans cette activité ces chiffres ne seront pas pris en compte.
+
+\newpage
+
+# Premier Output
+
+Regardez l'output d'une méta-analyse simulée comportant `r nrow(data_1)` contributions et identifiez les éléments d'intérêt indiqués ci-dessous.
+
+```{r output1, fig.cap="Forest plot d'une méta-analyse simulée"}
+print_forest(analysis_1, com = TRUE, ran = FALSE, het = TRUE)
+```
+
+1.  Quel type d'effet est calculé dans cette méta-analyse? Qu'est-ce que cela signifie?
+2.  Quelle est la contribution avec la moyenne du groupe expérimentale la plus élevée?
+3.  Quelle est la contribution avec la moyenne du groupe contrôle la plus basse?
+4.  Quelle contribution a la différence moyenne standardisée la plus élevée?
+5.  Est-ce que la contribution avec la différence moyenne standardisée la plus élevée est la même du point 2 avec la moyenne du groupe expérimentale la plus élevée? Qu'est-ce que vous pouvez en déduire?
+6.  Dans quelle contribution la différence moyenne standardisée présente le plus de variabilité?
+7.  Quel est la taille de l'effet cumulé dans cette analyse?
+8.  Que pouvez-vous conclure depuis la distribution des effets dans ce forest plot?
+9.  Qu'est-ce qui vous indique l'intervalle de prédiction dans ce forest plot?
+
+\newpage
+
+# Deuxième Output
+
+Regardez l'output d'une autre méta-analyse simulée comportant `r nrow(data_2)` contributions et identifiez les éléments d'intérêt indiqués ci-dessous.
+
+```{r output2, fig.cap="Forest plot d'une méta-analyse simulée"}
+print_forest(analysis_2, com = FALSE, ran = TRUE, het = TRUE)
+```
+
+1.  Quel type d'effet est calculé dans cette méta-analyse? Qu'est-ce que cela signifie?
+2.  Combien de contributions, individuellement, n'ont pas pu rejeter l'hypothèse nulle?
+3.  À votre avis, la puissance statistique des ces contributions est faible ou élevée?
+4.  Qu'est-ce que l'accumulation des effets permet d'établir au niveau de l'effet d'intérêt?
+5.  L'intervalle de prédiction est très proche de zéro, qu'est-ce que cela comporte?
+
+\newpage
+
+# Troisième Output
+
+Regardez l'output d'une autre méta-analyse simulée comportant `r nrow(data_3)` contributions et identifiez les éléments d'intérêt indiqués ci-dessous.
+
+```{r output3, fig.cap="Forest plot d'une méta-analyse simulée"}
+print_forest(analysis_3, com = FALSE, ran = TRUE, het = TRUE)
+```
+
+1.  Qu'est-ce que vous pouvez noter au niveau de la distribution des effets des contributions?
+2.  Quelle est la conséquence sur les intervalles de prédictions?
+3.  Qu'est-ce qui pourrait expliquer ce pattern?
+4.  Quel type d'analyse pourrait-on imaginer de mener dans un contexte similaire?
+
+\newpage
+
+# Activités complémentaires
+
+Vous pouvez choisir entre les deux activités complémentaires suivantes.
+
+## Identifier les éléments dans une méta-analyse publiée
+
+Cette activité consiste à trouver dans la littérature existante une méta-analyse de votre intérêt et identifier les éléments d'intérêt suivants:
+
+-   À quoi correspond la SMD concrètement? Quelle est la différence entre les deux groupes? Quelle est l'outcome sur laquelle la différence est mesurée?
+
+-   Cherchez la présence d'un forest plot et essayez d'identifier:
+
+    -   Le type d'effet évalué (Common ou Random)
+
+    -   La présence, la direction, la magnitude et l'incertitude autour de l'effet combiné
+
+    -   L'hétérogénéité entre contributions
+
+## Simuler des résultats avec un script R
+
+Vous pouvez utiliser un script du langage de programmation R pour simuler les données de différentes contributions et produire le output d'une méta-analyse. Les instructions sont directement disponibles dans le script.
+
+-   [Lien vers le script](https://github.com/mafritz/systematic-review-workshop-2023/blob/main/activite-2/scripts/meta-analysis.R)
+
+# Conclusion
+
+Cette activité a porté principalement sur la compréhension des forest plot, des instruments très utilisés dans les contributions scientifiques proposant une méta-analyse. Il ne s'agit cependant que d'une facette des méta-analyse, donc les méthodes sont constamment en évolution.
+
+Le principe de base est néanmoins partagé: les méta-analyse combine plusieurs estimation d'une valeur d'intérêt afin d'augmenter la précision ou d'identifier des potentielles sources d'hétérogénéité.

@@ -1,0 +1,27 @@
+\usepackage{fancyhdr}
+\usepackage{truncate}
+\pagestyle{fancy}
+
+% Clear the header and footer
+\fancyhf{}
+
+% Define the header
+\fancyhead[L]{\footnotesize\truncate{0.48\headwidth}\leftmark}
+\fancyhead[R]{\footnotesize\truncate{0.48\headwidth}\rightmark}
+
+% Define the footer
+\fancyfoot[C]{\thepage}
+
+\usepackage[font=small,labelfont=bf,width=0.8\textwidth]{caption}
+
+\usepackage{etoolbox}
+\ifundef{\abstract}{}{\patchcmd{\abstract}%
+    {\quotation}{\quotation\noindent\ignorespaces}{}{}}
+
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{4}
