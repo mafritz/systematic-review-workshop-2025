@@ -1,5 +1,5 @@
 ---
-title: "Activité sur la planification et l'exécution d'une recherche documentaire pour une revue systématique avec ou sans méta-analyse"
+title: "Planification et exécution d'une recherche documentaire pour une revue systématique avec ou sans méta-analyse"
 author: |
   | **Mattia A. Fritz**
   | \small SRED, Canton de Genève et TECFA, Université de Genève
@@ -171,7 +171,7 @@ Notez les critères dans le tableau à la fin de la fiche d'accompagnement.
 
 Cette activité a proposé une esquisse de démarche systématique compatible avec les temps d'un workshop. Évidemment, un flux pour une vraie revue systématique prévoit des étapes ultérieurs et une majeur complexification des étapes illustrées ici. Néanmoins, cette simple démarche permet déjà d'attirer l'attention sur les éléments fondamentaux suivants:
 
--   Il est important de documenter le processus du tout début. Cela permet de garder trace à l'intérieur de l'équipe, mais également de faciliter l'explication du processus aux autres chercheurs.
+-   Il est important de documenter le processus du début. Cela permet de garder trace à l'intérieur de l'équipe, mais également de faciliter l'explication du processus aux autres chercheurs.
 
 -   Idéalement, toutes les décisions concernant l'identification, la modalité de récolte, l'évaluation et l'éligibilité des contributions devraient être motivé de manière exhaustive et précise.
 

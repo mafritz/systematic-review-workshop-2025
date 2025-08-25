@@ -1,5 +1,5 @@
 ---
-title: "Activité sur les fondements et les enjeux dans l'interprétation des outputs d'une méta-analyse"
+title: "Fondements et enjeux dans l'interprétation des outputs d'une méta-analyse"
 author: |
   | **Mattia A. Fritz**
   | \small SRED, Canton de Genève et TECFA, Université de Genève

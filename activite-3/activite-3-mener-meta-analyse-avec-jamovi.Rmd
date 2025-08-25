@@ -1,0 +1,33 @@
+---
+title: "Mener une méta-analyse avec Jamovi"
+author: |
+  | **Mattia A. Fritz**
+  | \small SRED, Canton de Genève et TECFA, Université de Genève
+date: "`r format(Sys.time(), '%d/%m/%Y')`"
+lang: fr
+linestretch: 1.2
+fontsize: 12pt
+urlcolor: blue
+output:
+  pdf_document:
+    toc: false
+    toc_depth: 1
+    number_sections: true
+    latex_engine: xelatex
+    extra_dependencies: ["flafter"]
+    includes:
+      in_header: "../settings/preamble.tex"
+      before_body: "../settings/before-body.tex"
+      #after_body: "doc-suffix.tex"
+bibliography: ../bib/references.bib
+csl: ../settings/apa.csl
+abstract: "Cette activité permet de s'initier à mener une méta-analyse avec Jamovi. Elle s'intéresse aux méta-analyses classiques qui concerne la différence entre un groupe contrôle et un groupe treatment. Deux techniques sont proposées. Une lorsque les différentes informations sur les deux groupes sont utilisées (N, M et SD pour le traitement, N, M et SD pour contrôle). L'autre lorsqu'on utilise plutôt la taille de l'effet standardisée. Procédures et enjeux sont expliqués et discutés."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+Sys.setlocale("LC_ALL", "French")
+source(here::here("settings", "custom.R"))
+```
+
+# Introduction
