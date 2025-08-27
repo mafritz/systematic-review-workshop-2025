@@ -58,21 +58,21 @@ Nous allons utiliser les données de @zhangMetaAnalysisSystematic2025 disponible
 
 Chaque ligne correspond à une étude, avec les colonnes suivantes :
 
-| Study | Experimental Mean | Experimental SD | Experimental Total | Control Mean | Control SD | Control Total |
-|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
-| H Vankova 2014 | 5.00 | 3.29 | 79 | 5.27 | 3.27 | 83 |
-| J Sims 2006 | 11.50 | 6.66 | 14 | 11.88 | 4.88 | 18 |
-| K J Lee 2023 | 10.54 | 3.84 | 28 | 13.55 | 4.62 | 29 |
+| study          | treat_m | treat_sd | treat_n | ctrl_m | ctrl_sd | ctrl_n |
+|----------------|---------|----------|---------|--------|---------|--------|
+| H Vankova 2014 | 5.00    | 3.29     | 79      | 5.27   | 3.27    | 83     |
+| J Sims 2006    | 11.50   | 6.66     | 14      | 11.88  | 4.88    | 18     |
+| K J Lee 2023   | 10.54   | 3.84     | 28      | 13.55  | 4.62    | 29     |
 
-**Colonnes :** - `Experimental Mean`, `Experimental SD`, `Experimental Total` → moyennes, écarts-types et effectifs du groupe expérimental.\
-- `Control Mean`, `Control SD`, `Control Total` → idem pour le groupe contrôle.\
-- `Study` → identifiant textuel de l’étude (affiché dans les graphiques).
+**Colonnes :** - `treat_m`, `treat_sd`, `treat_n` → moyennes, écarts-types et effectifs du groupe expérimental.\
+- `ctrl_m`, `ctrl_sd`, `ctrl_n` → idem pour le groupe contrôle.\
+- `study` → identifiant textuel de l’étude (affiché dans les graphiques).
 
 ## Importation dans jamovi
 
 1.  Ouvrir jamovi.\
 2.  Menu **Fichier → Ouvrir**, et sélectionner le fichier Excel `zhang_2025_meta-analysis-data.xlsx`.\
-3.  Vérifier que les colonnes `Experimental Mean`, `Experimental SD`, `Experimental Total`, ainsi que `Control Mean`, `Control SD`, `Control Total` sont bien reconnues comme **numériques**,\
+3.  Vérifier que les colonnes `treat_m`, `treat_sd`, `treat_n`, ainsi que `Control Mean`, `ctrl_sd`, `ctrl_n` sont bien reconnues comme **numériques**,\
     et que `Study` est de type **texte**.
 
 Si ceci n'est pas le cas, vous avez deux options.
@@ -97,8 +97,8 @@ Si ceci n'est pas le cas, vous avez deux options.
 
 1.  Aller dans **MAJOR → Effect size (based on M, SD, N)**.\
 2.  Assigner les variables **dans l'ordre attendu par le logiciel** :
-    -   Groupe expérimental → `Experimental Mean`, `Experimental SD`, `Experimental Total`\
-    -   Groupe contrôle → `Control Mean`, `Control SD`, `Control Total`\
+    -   Groupe expérimental → `treat_m`, `treat_sd`, `treat_n`\
+    -   Groupe contrôle → `Control Mean`, `ctrl_sd`, `ctrl_n`\
 3.  Sélectionner la mesure d’effet : **Standardized Mean Difference (Cohen’s d)**.
     -   Cocher **Hedges’ g** pour la correction petit échantillon (recommandé).\
 4.  Dans l’onglet **Model**, choisir :
