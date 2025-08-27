@@ -31,3 +31,99 @@ source(here::here("settings", "custom.R"))
 ```
 
 # Introduction
+
+Dans ce tutoriel, nous allons apprendre à conduire une méta-analyse *classique*. Nous allons utiliser le logiciel **jamovi** avec le module **MAJOR**, en nous concentrant sur un cas classique : la **différence moyenne standardisée (DMS)**.
+
+1.  la première lorsque nous disposons des données descriptives par groupe (**N, M, SD**)
+
+2.  la seconde lorsque nous avons directement une **taille d’effet** rapportée par les articles avec son incertitude.
+
+# Installation du module MAJOR
+
+Le logiciel **jamovi** permet d’étendre ses fonctionnalités grâce à des **modules additionnels**. Pour réaliser une méta-analyse, nous allons installer le module **MAJOR**.
+
+1.  **Ouvrir jamovi** sur votre ordinateur.\
+2.  Dans le menu supérieur droit, cliquer sur **Modules** puis choisir **Bibliothèque**.\
+3.  Dans la barre de recherche, taper **MAJOR**.\
+4.  Sélectionner le module *Meta-Analysis in jamovi* et cliquer sur **Installer**.\
+5.  Une fois installé, le module apparaît dans le ruban d’analyses, sous l’onglet **MAJOR**.
+
+Même si vous avez changé la langue de l'interface en français, l'interface du module MAJOR restera probablement en anglais, car le module lui-même n'est pas traduit dans toutes les langues.
+
+# Méta-analyse avec N, M, SD × 2 groupes
+
+## Préparation des données
+
+Nous allons utiliser les données de @zhangMetaAnalysisSystematic2025 disponibles dans le fichier `zhang_2025_meta-analysis-data.xlsx`.
+
+Chaque ligne correspond à une étude, avec les colonnes suivantes :
+
+| Study | Experimental Mean | Experimental SD | Experimental Total | Control Mean | Control SD | Control Total |
+|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+| H Vankova 2014 | 5.00 | 3.29 | 79 | 5.27 | 3.27 | 83 |
+| J Sims 2006 | 11.50 | 6.66 | 14 | 11.88 | 4.88 | 18 |
+| K J Lee 2023 | 10.54 | 3.84 | 28 | 13.55 | 4.62 | 29 |
+
+**Colonnes :** - `Experimental Mean`, `Experimental SD`, `Experimental Total` → moyennes, écarts-types et effectifs du groupe expérimental.\
+- `Control Mean`, `Control SD`, `Control Total` → idem pour le groupe contrôle.\
+- `Study` → identifiant textuel de l’étude (affiché dans les graphiques).
+
+## Importation dans jamovi
+
+1.  Ouvrir jamovi.\
+2.  Menu **Fichier → Ouvrir**, et sélectionner le fichier Excel `zhang_2025_meta-analysis-data.xlsx`.\
+3.  Vérifier que les colonnes `Experimental Mean`, `Experimental SD`, `Experimental Total`, ainsi que `Control Mean`, `Control SD`, `Control Total` sont bien reconnues comme **numériques**,\
+    et que `Study` est de type **texte**.
+
+Si ceci n'est pas le cas, vous avez deux options.
+
+### Modifier le type de variable dans l'onglet Variables
+
+-   Dans l’onglet **Variables** (en haut de l’interface), on peut vérifier et corriger le type de chaque colonne.\
+-   Les symboles indiquent le type de variable\
+-   En cas d’erreur d’importation (par exemple si une colonne numérique est lue comme texte), il suffit de :
+    1.  Cliquer sur le type de variable dans la barre supérieure,\
+    2.  Sélectionner **Numérique** ou **Texte** selon le cas.
+
+### Modifier directement dans l’éditeur de données
+
+-   On peut également cliquer sur le nom d’une colonne dans la feuille de données.\
+-   Une petite fenêtre permet alors de changer :
+    -   le **type** (numérique, texte, ordinal, etc.),\
+    -   le **format d’affichage** (nombre entier, décimal, etc.),\
+    -   ou encore de renommer la variable.
+
+## Paramétrage de l’analyse
+
+1.  Aller dans **MAJOR → Effect size (based on M, SD, N)**.\
+2.  Assigner les variables **dans l'ordre attendu par le logiciel** :
+    -   Groupe expérimental → `Experimental Mean`, `Experimental SD`, `Experimental Total`\
+    -   Groupe contrôle → `Control Mean`, `Control SD`, `Control Total`\
+3.  Sélectionner la mesure d’effet : **Standardized Mean Difference (Cohen’s d)**.
+    -   Cocher **Hedges’ g** pour la correction petit échantillon (recommandé).\
+4.  Dans l’onglet **Model**, choisir :
+    -   **Random Effects (REML)** (recommandé),\
+    -   ou **Fixed Effect** si comparaison souhaitée.\
+5.  Dans **Additional output**, activer :
+    -   **Forest plot**\
+    -   **Funnel plot**\
+    -   Indices d’hétérogénéité (*Q, I², τ²*)\
+    -   **Prediction interval**
+
+## Interprétation des résultats
+
+-   **Effet combiné (g de Hedges)** : valeur moyenne de la DMS et IC95%.\
+-   **Hétérogénéité** :
+    -   *Q* (test global),\
+    -   **I²** (% de variance due à l’hétérogénéité),\
+    -   **τ²** (variance inter-études estimée).\
+-   **Forest plot** : montre les tailles d’effet par étude et l’effet global.\
+-   **Funnel plot** : visualisation exploratoire d’un biais de publication (attention : MAJOR ne fournit pas le test d’Egger).
+
+## Limites de cette approche
+
+-   Les données descriptives (M, SD, N) ne sont pas toujours disponibles dans les articles, surtout avec des modèles complexes (pré-post, ANOVA factorielle, modèles mixtes).\
+-   Méthode limitée à la **différence moyenne standardisée (Cohen’s d / Hedges’ g)** pour deux groupes.\
+-   Pas adaptée à d’autres tailles d’effet (corrélations, odds ratios, hazard ratios, etc.).
+
+# Références
