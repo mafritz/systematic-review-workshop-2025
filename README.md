@@ -14,10 +14,9 @@ Chaque partie prévoit des activités pratiques ou de reflexion.
 ## Description du matériel
 Le matériel est disponible dans les sous-dossiers correspondants :
 
-* [Slides](./slides) : support de la formation
 * [Activité 1](./activite-1) : recherche documentaire avec des fiches d'accompagnement pour les framework PICO/PECO ou SPIDER
 * [Activité 2](./activite-2) : interprétation des output d'une méta-analyse *classique*, avec la possibilité d'utiliser des scripts [R](https://www.r-project.org/) pour simuler des données
-* [Activité 3](./activite-3) : mener une méta-anylsis avec le logiciel [Jamovi](https://www.jamovi.org/)
+* [Activité 3](./activite-3/) : mener une méta-anylsis avec le logiciel [Jamovi](https://www.jamovi.org/)
 
 ## Licence du matériel
 
