@@ -49,5 +49,7 @@ po/*~
 rsconnect/
 
 # Log files
-
 *.log
+
+# Answers
+*_answer.txt
