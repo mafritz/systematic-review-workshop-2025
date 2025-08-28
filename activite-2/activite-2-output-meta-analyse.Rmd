@@ -29,7 +29,7 @@ library(here)
 library(tibble)
 library(metafor)
 knitr::opts_chunk$set(
-  echo = FALSE, 
+  echo = FALSE,
   warning = FALSE,
   out.width = "100%",
   fig.align = "center",
@@ -147,7 +147,7 @@ Cette activité consiste à trouver dans la littérature existante une méta-ana
 
 Vous pouvez utiliser un script du langage de programmation R pour simuler les données de différentes contributions et produire le output d'une méta-analyse. Les instructions sont directement disponibles dans le script.
 
--   [Lien vers le script](https://github.com/mafritz/systematic-review-workshop-2023/blob/main/activite-2/scripts/meta-analysis.R)
+-   [Lien vers le script](https://github.com/mafritz/systematic-review-workshop-2025/blob/main/activite-2/scripts/meta-analysis.R)
 
 # Conclusion
 
