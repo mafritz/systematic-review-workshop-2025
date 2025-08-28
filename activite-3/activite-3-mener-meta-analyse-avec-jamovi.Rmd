@@ -1,5 +1,5 @@
 ---
-title: "Mener une méta-analyse avec Jamovi"
+title: "Mener une méta-analyse classique avec jamovi basée sur la différence standardisée entre moyennes"
 author: |
   | **Mattia A. Fritz**
   | \small SRED, Canton de Genève et TECFA, Université de Genève
@@ -38,31 +38,39 @@ Dans ce tutoriel, nous allons apprendre à conduire une méta-analyse *classique
 
 2.  la seconde lorsque nous avons directement une **taille d’effet** rapportée par les articles avec son incertitude.
 
+Pour mener les analyses, nous utiliserons les données issues de l'article suivant :
+
+-   Zhang, Zheng, Jia-Yun Liu, Kai-Tuo Zhu, and Gui-Quan Huo. 2025. “A Meta Analysis and Systematic Review of the Effects of Exercise Interventions on Middle-Aged and Elderly Patients with Depression.” *PLOS ONE* 20(1):e0303594. [doi:10.1371/journal.pone.0303594](https://doi.org/10.1371/journal.pone.0303594)
+
+Garder l'article ouvert dans le navigateur ou dans un logiciel de gestion de référence bibliographique comme Zotero.
+
 # Installation du module MAJOR
 
 Le logiciel **jamovi** permet d’étendre ses fonctionnalités grâce à des **modules additionnels**. Pour réaliser une méta-analyse, nous allons installer le module **MAJOR**.
 
 1.  **Ouvrir jamovi** sur votre ordinateur.\
 2.  Dans le menu supérieur droit, cliquer sur **Modules** puis choisir **Bibliothèque**.\
-3.  Dans la barre de recherche, taper **MAJOR**.\
-4.  Sélectionner le module *Meta-Analysis in jamovi* et cliquer sur **Installer**.\
-5.  Une fois installé, le module apparaît dans le ruban d’analyses, sous l’onglet **MAJOR**.
+3.  Sélectionner le module **MAJOR** *Meta-Analysis in jamovi* et cliquer sur **Installer**.\
+4.  Une fois installé, le module apparaît dans le ruban d’analyses, sous l’onglet **MAJOR**.
 
 Même si vous avez changé la langue de l'interface en français, l'interface du module MAJOR restera probablement en anglais, car le module lui-même n'est pas traduit dans toutes les langues.
 
 # Méta-analyse avec N, M, SD × 2 groupes
 
+Pour cette première analyse, nous allons utiliser les données appelés **descriptives** qui sont souvent, mais pas toujours, disponibles dans les articles. J'ai extrait ces données depuis l'article original. L'avantage des méta-analyses est que les données sont pratiquement toujours disponibles car il s'agit simplement des résumés des études primaires.
+
 ## Préparation des données
 
-Nous allons utiliser les données de @zhangMetaAnalysisSystematic2025 disponibles dans le fichier `zhang_2025_meta-analysis-data.xlsx`.
+Nous allons utiliser les données de @zhangMetaAnalysisSystematic2025 disponibles dans le fichier `descriptive_groups_zhang_2025.xlsx`.
 
-Chaque ligne correspond à une étude, avec les colonnes suivantes :
+La structure des données sera similaire à celle-ci (avec plus de colonnes) :
 
 | study          | treat_m | treat_sd | treat_n | ctrl_m | ctrl_sd | ctrl_n |
 |----------------|---------|----------|---------|--------|---------|--------|
 | H Vankova 2014 | 5.00    | 3.29     | 79      | 5.27   | 3.27    | 83     |
 | J Sims 2006    | 11.50   | 6.66     | 14      | 11.88  | 4.88    | 18     |
 | K J Lee 2023   | 10.54   | 3.84     | 28      | 13.55  | 4.62    | 29     |
+| ...            |         |          |         |        |         |        |
 
 **Colonnes :**
 
@@ -73,58 +81,145 @@ Chaque ligne correspond à une étude, avec les colonnes suivantes :
 ## Importation dans jamovi
 
 1.  Ouvrir jamovi.\
-2.  Menu **Fichier → Ouvrir**, et sélectionner le fichier Excel `zhang_2025_meta-analysis-data.xlsx`.\
-3.  Vérifier que les colonnes `treat_m`, `treat_sd`, `treat_n`, ainsi que ctrl_m, `ctrl_sd`, `ctrl_n` sont bien reconnues comme **numériques** et que `study` est de type **texte**.
+2.  Menu **Fichier → Ouvrir**, et sélectionner le fichier Excel correspondant.\
+3.  Vérifier que les colonnes `treat_m`, `treat_sd`, `treat_n`, ainsi que ctrl_m, `ctrl_sd`, `ctrl_n` sont bien reconnues comme **continu/entier** et que `study` est de type **nominal/texte**.
 
-Si ceci n'est pas le cas, vous avez deux options.
+Si ceci n'est pas le cas, vous avez deux options :
 
-### Modifier le type de variable dans l'onglet Variables
+-   Modifier directement depuis le l'onglet **Données** en cliquant deux fois sur le nom de la variable
 
--   Dans l’onglet **Variables** (en haut de l’interface), on peut vérifier et corriger le type de chaque colonne.\
--   Les symboles indiquent le type de variable\
--   En cas d’erreur d’importation (par exemple si une colonne numérique est lue comme texte), il suffit de :
-    1.  Cliquer sur le type de variable dans la barre supérieure,\
-    2.  Sélectionner **Numérique** ou **Texte** selon le cas.
+-   Modifier à travers l'onglet **Variables**
 
-### Modifier directement dans l’éditeur de données
-
--   On peut également cliquer sur le nom d’une colonne dans la feuille de données.\
--   Une petite fenêtre permet alors de changer :
-    -   le **type** (numérique, texte, ordinal, etc.),\
-    -   le **format d’affichage** (nombre entier, décimal, etc.),\
-    -   ou encore de renommer la variable.
+Dans cette analyse, il faudra modifier les deux variables correspondantes aux N des groupes en **variables continues**.
 
 ## Paramétrage de l’analyse
 
-1.  Aller dans **MAJOR → Effect size (based on M, SD, N)**.\
-2.  Assigner les variables **dans l'ordre attendu par le logiciel** :
-    -   Groupe expérimental → `treat_m`, `treat_sd`, `treat_n`\
-    -   Groupe contrôle → `ctrl_m`, `ctrl_sd`, `ctrl_n`\
-3.  Sélectionner la mesure d’effet : **Standardized Mean Difference (Cohen’s d)**.
-    -   Cocher **Hedges’ g** pour la correction petit échantillon (recommandé).\
-4.  Dans l’onglet **Model**, choisir :
-    -   **Random Effects (REML)** (recommandé),\
-    -   ou **Fixed Effect** si comparaison souhaitée.\
-5.  Dans **Additional output**, activer :
-    -   **Forest plot**\
-    -   **Funnel plot**\
-    -   Indices d’hétérogénéité (*Q, I², τ²*)\
-    -   **Prediction interval**
+Passer dans l'onglet **Analyses** :
+
+1.  Aller dans **MAJOR → Mean Differences (n, M, SD)**.
+
+2.  Assigner les variables **dans l'ordre attendu par le logiciel**
+
+3.  Dérouler l'encadré **Model Options** et choisir les options suivantes :
+
+    -   Model esimator : **Restricted Maximum-Likelihood**
+    -   Effect size model measures : **Standardized Mean Difference**
+    -   Cocher la case **Display model fit**\
+
+4.  Dérouler l'encadré **Plots** et choisir les options suivantes :
+
+    -   Cocher la case **Prediction interval** (très important)
+    -   Cocher la case **Model fitting weights**
+    -   Selon les besoins, choisir la taille du graphique
+
+5.  Ne pas s'intéresser à l'encadré **Publication bias**, toutes les options proposées sont invalidées ou peu intéressantes.
+
+    -   Même si vous ne touchez pas à cet encadré, vous allez recevoir des output sur le biais de publication. Ne les considérez et ne les reportez pas dans votre contribution. Si un superviseur ou un reviewer vous les demande, vous me contactez et je m'en occupe !
+    -   Le funnel plot reste le meilleur moyen pour évaluer la distribution des effets dans les études
+
+6.  L'encadré **Equivalence Test Options** peut donner des éléments d'intérêt, mais qui ne sont pas traités dans ce workshop
+
+7.  Dérouler l'encadré **Additional Options** et choisir les options suivantes :
+
+    -   Cocher la case **Show Plot of Influence Diagnostics**
+    -   Cocher la case **SHow Likelihood Plot**
 
 ## Interprétation des résultats
 
--   **Effet combiné (g de Hedges)** : valeur moyenne de la DMS et IC95%.\
--   **Hétérogénéité** :
-    -   *Q* (test global),\
-    -   **I²** (% de variance due à l’hétérogénéité),\
-    -   **τ²** (variance inter-études estimée).\
--   **Forest plot** : montre les tailles d’effet par étude et l’effet global.\
--   **Funnel plot** : visualisation exploratoire d’un biais de publication (attention : MAJOR ne fournit pas le test d’Egger).
+Comparer les résultats obtenus avec les résultats publiés dans l'article :
+
+1.  Identifier les indicateurs d'intérêt selon ce que vous avez retenu de la présentation du workshop
+2.  Essayer de donner une interprétation aux résultats en écrivant vos réflexions
+3.  Identifier les indicateurs dans l'article de @zhangMetaAnalysisSystematic2025 et essayer de comprendre l'interprétation des auteurs
+4.  Comparer avec vos interprétations et noter les éléments manquants ou divergents
+
+## Éléments critiques
+
+Faire bien attention aux éléments suivants :
+
+-   Bien identifier le groupe traitement et le groupe contrôle, autrement la direction de la taille de l'effet ne va pas correspondre
+
+-   Si l'article original utilise un plan plus articulé d'un plan à deux groupes indépendants, il faut s'assurer de pouvoir récupérer les n, M, et SD des deux groupes qui vous intéressent pour votre méta-analyse
 
 ## Limites de cette approche
 
 -   Les données descriptives (M, SD, N) ne sont pas toujours disponibles dans les articles, surtout avec des modèles complexes (pré-post, ANOVA factorielle, modèles mixtes).\
--   Méthode limitée à la **différence moyenne standardisée (Cohen’s d / Hedges’ g)** pour deux groupes.\
+-   Méthode limitée à la **différence moyenne standardisée** pour deux groupes.\
 -   Pas adaptée à d’autres tailles d’effet (corrélations, odds ratios, hazard ratios, etc.).
+
+# Méta-analyse avec tailles des effets et variance/erreur standard
+
+Pour cette deuxième analyse, nous utiliserons directement l'indicateur de la taille de l'effet avec une mesure de variabilité/erreur standard. J'ai recalculé deux mesures de tailles d'effet depuis les données descriptives de l'activité précédente qui seront utilisées et comparées.
+
+## Préparation des données
+
+Les données reportent les mêmes études de données originales, mais j'ai enlevé les statistiques descriptives qui sont remplacées par :
+
+-   Taille de l'effet, variance et erreur standard pour le **Cohen's *d***
+
+-   Taille de l'effet, variance et erreur standard pour le **Hedges' *g***
+
+Les données ont cette structure :
+
+| study          | cohen_d | cohen_var | cohen_se | hedges_g | hedges_var | hedges_se |
+|:----------|----------:|----------:|----------:|----------:|----------:|----------:|
+| H Vankova 2014 |   -0.08 |      0.02 |     0.16 |    -0.08 |       0.02 |      0.16 |
+| J Sims 2006    |   -0.07 |      0.13 |     0.36 |    -0.06 |       0.12 |      0.35 |
+| K J Lee 2023   |   -0.71 |      0.07 |     0.27 |    -0.70 |       0.07 |      0.27 |
+| ...            |         |           |          |          |            |           |
+
+## Importation dans jamovi
+
+Suivre les mêmes étapes de l'analyse précédente.
+
+## Paramétrage de l’analyse
+
+Passer dans l'onglet **Analyses** :
+
+1.  Aller dans **MAJOR → Effect Sizes and (Sampling Variances or Standard Errors)**.
+2.  Assigner d'abord les variables du **Cohen's d** en choisissant l'**une** entre variance et standard error
+3.  Dérouler l'encadré **Model Options** et choisir les options suivants :
+    -   **Fondamental** : s'assurer que l'option **Selected (correspondent observed ES)** correspond au type de mesure de variabilité que vous avez inséré dans les variables.
+        -   **Sampling Variances → `cohen_var`**
+        -   **Standard Errors → `cohen_se`**
+    -   Model estimator : **Restricted Maximum-Likelihood**
+    -   Cocher Display model fit
+4.  Pour les autres encadrés vous pouvez répéter les mêmes options de l'analyse précédente
+
+Une fois terminé avec le Cohen's d, demander à votre collègue de faire la même chose avec les variables du Hedges' g. Si vous travaillez individuellement, faites attention à ouvrir les données dans une nouvelle instance du logiciel pour garder aussi cette analyse active dans sa propre fenêtre.
+
+## Interprétation des résultats
+
+Comparer les résultats obtenus :
+
+-   Comparer les indicateurs du Cohen's d et du Hedges' g et identifier quel résultat correspond aux résultats de l’article et à l'analyse avec n, M et SD.
+
+-   Qu'est-ce que vous en tirez comme conclusion ?
+
+## Éléments critiques
+
+Faire bien attention aux éléments suivants quand vous menez une méta-analyse avec cette technique :
+
+-   Il faut que toutes les tailles d'effets soient de la **même famille** (*d* ou *r*) et du **même type à l'intérieur de cette famille** (e.g. toutes en Cohen's d)
+
+-   Il faut bien identifier **la direction de l'effet (signe positive ou négative)** de l'effet pour savoir quelle groupe présente une meilleure efficacité. Cette étape est d'autant plus délicate car l'efficacité peut varier selon l'outcome. Si on prend la manifestation de symptômes comme exemple :
+
+    -   Si la taille se réfère à la quantité de symptômes, alors une meilleure efficacité correspond à une taille d'effet \< 0 si on calcule groupe traitement - groupe contrôle
+
+    -   Si la taille se réfère à la diminution de symptômes, alors une meilleure efficacité correspond à une taille d'effet \> 0 si on calcule groupe traitement - groupe contrôle
+
+-   Dans le tableau de codage il est bien d'avoir une colonne `effect_size_original` et une colonne `effect_size_adapted` avec un commentaire qui explique pourquoi une transformation ou une inversion de signe a été nécessaire
+
+## Limites de cette approche
+
+-   La taille de l'effet n'est pas toujours indiquée dans les articles scientifiques, surtout les moins récents, lorsqu'on se focalisé exclusivement sur la p-valeur (sic)
+
+-   Il n'est pas toujours claire comment la variance a été calculée, surtout dans des plans articulés. Dans ces plans, la varience dépend des covariés, de la corrélation pré-test vs. post-test, ou des variables de groupement dans des modèles multi-niveaux
+
+-   Les données descriptives nous aident à évaluer si la taille de l'effet est cohérente avec les moyennes des groupes, ce qui n'est pas possible avec la seule taille de l'effet
+
+# Conclusion
+
+Ce tutoriel a montré deux manières de mener une méta-analyse basé sur la différence standardisée entre moyennes. Les deux présentent des avantages et désavantages et le type d'analyse à mener dépend surtout des données dont on peut disposer. Dans les deux cas, ce type de méta-analyse, bien qu'elle soit toujours la plus fréquente, présente des limites lorsque les études primaires utilisent des designs de recherche plus articulés par rapport à des groupes indépendants.
 
 # Références

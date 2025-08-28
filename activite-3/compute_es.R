@@ -15,17 +15,17 @@ compute_effect_sizes <- function(data) {
 
       # --- Cohen's d ---
       cohen_d = (treat_m - ctrl_m) / sp,
-      cohen_d_var = (treat_n + ctrl_n) / (treat_n * ctrl_n) + (cohen_d^2) / (2 * (treat_n + ctrl_n)),
-      cohen_d_se = sqrt(cohen_d_var),
+      cohen_var = (treat_n + ctrl_n) / (treat_n * ctrl_n) + (cohen_d^2) / (2 * (treat_n + ctrl_n)),
+      cohen_se = sqrt(cohen_var),
 
       # --- Hedges' g ---
       J = 1 - (3 / (4 * (treat_n + ctrl_n) - 9)), # correction factor
       hedges_g = J * cohen_d,
-      hedges_g_var = J^2 * cohen_d_var,
-      hedges_g_se = sqrt(hedges_g_var)
+      hedges_var = J^2 * cohen_var,
+      hedges_se = sqrt(hedges_var)
     ) %>%
     ungroup() %>%
-    select(study, contains("cohen_d"), contains("hedges_g"))
+    select(study, contains("cohen_"), contains("hedges_"))
 }
 
 
